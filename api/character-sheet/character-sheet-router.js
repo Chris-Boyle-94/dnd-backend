@@ -1,7 +1,14 @@
 const router = require('express').Router();
+const characterSheet = require('./character-sheet-model')
 
-router.get('/', (req, res) => {
-    res.status(200).json({ message: 'looking good' });
+
+router.get('/', async (req, res, next) => {
+    try {
+        const response = await characterSheet.getCharacter()
+        res.status(200).json(response)
+    } catch (error) {
+        next(error)
+    }
 });
 
 
